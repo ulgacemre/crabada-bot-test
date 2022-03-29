@@ -18,7 +18,7 @@ from src.helpers.config import parseTeamConfig, parseUserConfig
 
 users: List[ConfigUser] = []
 userNumber = 1
-while getenv(f"USER_{userNumber}_PRIVATE_KEY"):
+while getenv(f"USER_1_PRIVATE_KEY"):
     # Parse config of user's teams
     teams: List[ConfigTeam] = []
     teamNumber = 1
