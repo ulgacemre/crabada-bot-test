@@ -12,7 +12,6 @@ from src.common.types import (
     Tus,
     TeamTask,
 )
-import os
 from src.common.dotenv import getenv, parseFloat, parseInt
 from typing import List, cast
 from eth_typing import Address
@@ -27,11 +26,11 @@ def parseTeamConfig(teamNumber: int, userNumber: int) -> ConfigTeam:
 
     teamConfig: ConfigTeam = {
         "id": parseInt(teamPrefix),
-        "userAddress": cast(Address, os.environ.get(f"{userPrefix}_ADDRESS")),
+        "userAddress": cast(Address, getenv(f"{userPrefix}_ADDRESS")),
         "battlePoints": parseInt(f"{teamPrefix}_BATTLE_POINTS"),
-        "task": cast(TeamTask, os.environ.get(f"{teamPrefix}_TASK", "mine")),
-        "lootStrategyName": os.environ.get(f"{teamPrefix}_LOOT_STRATEGY", "LowestBp"),
-        "reinforceStrategyName": os.environ.get(
+        "task": cast(TeamTask, getenv(f"{teamPrefix}_TASK", "mine")),
+        "lootStrategyName": getenv(f"{teamPrefix}_LOOT_STRATEGY", "LowestBp"),
+        "reinforceStrategyName": getenv(
             f"{teamPrefix}_REINFORCE_STRATEGY", "HighestBp"
         ),
         "reinforcementToPick": parseInt(f"{teamPrefix}_REINFORCEMENT_TO_PICK") or 1,
@@ -49,7 +48,7 @@ def parseUserConfig(userNumber: int, teams: List[ConfigTeam]) -> ConfigUser:
     TODO: Use something like Cerberus to make parsing sustainable
     """
     userPrefix = f"USER_{userNumber}"
-    address = cast(Address, os.environ.get(f"{userPrefix}_ADDRESS"))
+    address = cast(Address, getenv(f"{userPrefix}_ADDRESS"))
     reinforcementMaxPriceInTus = (
         parseFloat(f"{userPrefix}_REINFORCEMENT_MAX_PRICE") or 0
     )
@@ -60,7 +59,7 @@ def parseUserConfig(userNumber: int, teams: List[ConfigTeam]) -> ConfigUser:
 
     userConfig: ConfigUser = {
         "address": address,
-        "privateKey": os.environ.get(f"{userPrefix}_PRIVATE_KEY"),
+        "privateKey": getenv(f"{userPrefix}_PRIVATE_KEY"),
         "reinforcementMaxPriceInTus": cast(Tus, reinforcementMaxPriceInTus),
         "reinforcementMaxPriceInTusWei": Web3.toWei(
             reinforcementMaxPriceInTus, "ether"
