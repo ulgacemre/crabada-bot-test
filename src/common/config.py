@@ -20,11 +20,11 @@ from src.helpers.config import parseTeamConfig, parseUserConfig
 
 users: List[ConfigUser] = []
 userNumber = 1
-while getenv(f"USER_{userNumber}_PRIVATE_KEY"):
+while os.environ.get(f"USER_{userNumber}_PRIVATE_KEY"):
     # Parse config of user's teams
     teams: List[ConfigTeam] = []
     teamNumber = 1
-    while getenv(f"USER_{userNumber}_TEAM_{teamNumber}"):
+    while os.environ.get(f"USER_{userNumber}_TEAM_{teamNumber}"):
         teams.append(parseTeamConfig(teamNumber, userNumber))
         teamNumber += 1
     # Parse other configs of user
@@ -43,22 +43,22 @@ nodeUri = os.environ.get("WEB3_NODE_URI")  #getenv("WEB3_NODE_URI")
 reinforceDelayInSeconds = parseInt("REINFORCE_DELAY_IN_SECONDS", 30)
 
 # Gas
-defaultGas = getenv("DEFAULT_GAS", "200000")  # units
-defaultGasPrice = getenv("DEFAULT_GAS_PRICE", "25")  # gwei
+defaultGas = os.environ.get("DEFAULT_GAS", "200000")  # units
+defaultGasPrice = os.environ.get("DEFAULT_GAS_PRICE", "25")  # gwei
 
 ##################
 # Notifications
 ##################
 
 twilio = {
-    "accountSid": getenv("TWILIO_ACCOUNT_SID"),
-    "authToken": getenv("TWILIO_AUTH_TOKEN"),
+    "accountSid": os.environ.get("TWILIO_ACCOUNT_SID"),
+    "authToken": os.environ.get("TWILIO_AUTH_TOKEN"),
 }
 
 notifications = {
     "sms": {
-        "enable": True if "1" == str(getenv("NOTIFICATION_SMS", "0")) else False,
-        "from": getenv("NOTIFICATION_SMS_FROM"),
-        "to": getenv("NOTIFICATION_SMS_TO"),
+        "enable": True if "1" == str(os.environ.get("NOTIFICATION_SMS", "0")) else False,
+        "from": os.environ.get("NOTIFICATION_SMS_FROM"),
+        "to": os.environ.get("NOTIFICATION_SMS_TO"),
     }
 }
