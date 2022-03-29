@@ -10,6 +10,8 @@ from src.common.types import (
 )
 from src.common.dotenv import getenv, parseInt
 from typing import List
+
+import os
 from src.helpers.config import parseTeamConfig, parseUserConfig
 
 #################
@@ -36,7 +38,8 @@ if not users:
 # General options
 ##################
 
-nodeUri = getenv("WEB3_NODE_URI")
+
+nodeUri = os.environ.get("WEB3_NODE_URI")  #getenv("WEB3_NODE_URI")
 reinforceDelayInSeconds = parseInt("REINFORCE_DELAY_IN_SECONDS", 30)
 
 # Gas
