@@ -67,7 +67,7 @@ def parseUserConfig(userNumber: int, teams: List[ConfigTeam]) -> ConfigUser:
         "teams": [t for t in teams if t["userAddress"] == address],
     }
 
-    #validateUserConfig(userConfig, userNumber)
+    validateUserConfig(userConfig, userNumber)
 
     return userConfig
 
