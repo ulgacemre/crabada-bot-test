@@ -17,7 +17,7 @@ class HighestBp(ReinforceStrategy):
 
     def query(self, game: Game) -> dict[str, Any]:
         return {
-            "limit": 200,  # TODO: make it an argument
+            "limit": 100,  # TODO: make it an argument
             "orderBy": "price",
             "order": "asc",
         }
